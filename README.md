@@ -1,156 +1,163 @@
-# Conway’s Game of Life – Interactive Python Visualizer 🧬
+# 🧬 Conway's Game of Life — Python Implementation
 
-![Game Demo](https://github.com/LAKSHYAMARODIA01/Conway-s-Game-of-Life/blob/main/demo.gif?raw=true)
-
-A feature-rich, interactive implementation of **Conway's Game of Life** in Python using **Pygame**, with support for:
-
-- 🟩 Custom patterns (save/load from `.txt`)
-- ⏯️ Simulation control
-- 💾 Pattern persistence
-- 📸 GIF recording
-- 🖱️ Real-time cell editing
+Welcome to an interactive and fully-featured implementation of **Conway’s Game of Life** in Python using `pygame`! This project simulates cellular automata with visual animation, real-time controls, save/load features, and GIF generation support.
 
 ---
 
-## 📌 What is Conway’s Game of Life?
+## 📌 Project Overview
 
-Conway’s Game of Life is a **zero-player game** — a cellular automaton where cells on a grid live, die, or reproduce based on mathematical rules.
-
-You provide the **initial pattern**, and the game evolves by itself!
-
-### 🌱 Core Rules
-
-1. Any live cell with **fewer than 2** live neighbors dies (underpopulation).
-2. Any live cell with **2 or 3** live neighbors lives on.
-3. Any live cell with **more than 3** live neighbors dies (overpopulation).
-4. Any dead cell with **exactly 3** live neighbors becomes alive (reproduction).
+**Conway's Game of Life** is a zero-player game devised by mathematician **John Conway**. It evolves based on an initial state according to a set of rules, creating fascinating patterns through simple logic.
 
 ---
 
-## 📁 Project Structure
+## 🚀 Features
+
+- Grid-based visual simulation
+- Adjustable grid size and FPS via CLI
+- Pause/play with next-step support
+- Save/load custom patterns (`.txt` format)
+- Generate GIFs from live simulation
+- Clean modular code with `pygame`
+- Built-in Glider pattern loader
+- Keyboard control panel
+
+---
+
+## 🧠 Algorithm Used
+
+This uses **Conway's Rules** for updating cells:
+
+1. **Underpopulation:** A live cell with fewer than two live neighbors dies.
+2. **Survival:** A live cell with two or three live neighbors lives.
+3. **Overpopulation:** A live cell with more than three live neighbors dies.
+4. **Reproduction:** A dead cell with exactly three live neighbors becomes alive.
+
+The grid is stored as a 2D list of `0` (dead) and `1` (alive) values. Each frame computes the next state using the rules above.
+
+---
+
+## 📂 Project Structure
 
 ```
 
 conway\_game\_of\_life/
 │
-├── life.py             # Main driver script
-├── board.py            # Grid state and update logic
-├── draw\.py             # Renders the grid and UI
-├── controls.py         # Handles user inputs
-├── persistence.py      # Load/save pattern files
-├── gif\_recorder.py     # Records gameplay into a GIF
-├── README.md           # This file
-├── requirements.txt    # Dependencies
+├── life.py               # Main script to run the game
+├── board.py              # Handles grid logic and updating rules
+├── draw\.py               # Manages drawing cells, grid, and UI
+├── controls.py           # Keyboard input and control handling
+├── persistence.py        # Save/load board patterns from .txt
+├── gif\_recorder.py       # Records simulation as animated GIF
+├── README.md             # Project documentation
+├── requirements.txt      # Required Python packages
 └── patterns/
-└── glider.txt      # Sample glider pattern
+├── glider.txt        # Sample glider pattern
+└── saved\_pattern.txt # Autosaved custom pattern
 
 ````
 
 ---
 
-## 🚀 Getting Started
+## 🖼 Demo
 
-### 1. Clone the Repo
+Here's a preview of the simulation in action:
+
+![Game of Life Demo](game_of_life.gif)
+
+---
+
+## ⚙️ Requirements
+
+Make sure you have Python 3.x installed. Then, install required packages:
 
 ```bash
-git clone https://github.com/LAKSHYAMARODIA01/Conway-s-Game-of-Life.git
-cd Conway-s-Game-of-Life/conway_game_of_life
+pip install -r requirements.txt
 ````
 
-### 2. Install Requirements
+Dependencies:
+
+* `pygame`
+* `imageio`
+
+---
+
+## 🛠️ How to Run the Game
+
+### ✅ Step 1: Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the App
+### ▶️ Step 2: Run the Main Program
+
+From your project folder, run:
 
 ```bash
-python life.py
+python life.py --width 60 --height 30 --fps 10
 ```
 
+You can adjust these options:
+
+* `--width`: Number of cells horizontally (default: 60)
+* `--height`: Number of cells vertically (default: 30)
+* `--fps`: Frames per second (default: 10)
+
+### 🎮 Step 3: In-Game Controls
+
+| Key       | Action                                                  |
+| --------- | ------------------------------------------------------- |
+| **Space** | Toggle Play/Pause                                       |
+| **N**     | Step forward one generation                             |
+| **C**     | Clear the board (all cells dead)                        |
+| **R**     | Randomly fill board with live cells                     |
+| **S**     | Save current live cells to `patterns/saved_pattern.txt` |
+| **L**     | Load live cells from `patterns/saved_pattern.txt`       |
+| **G**     | Start/Stop recording a GIF as `simulation.gif`          |
+
 ---
 
-## 🎮 Controls
+## 💾 Saving & Loading Patterns
 
-| Key         | Action                       |
-| ----------- | ---------------------------- |
-| `SPACE`     | Pause / Resume simulation    |
-| `N`         | Step forward 1 generation    |
-| `C`         | Clear the board              |
-| `R`         | Randomly fill board          |
-| `S`         | Save current pattern to file |
-| `L`         | Load pattern from file       |
-| `G`         | Start/Stop GIF recording     |
-| `Mouse`     | Toggle cell alive/dead       |
-| `ESC`/Close | Exit the game                |
+* **Save:** Press `S` to store the current board state to `patterns/saved_pattern.txt`
+* **Load:** Press `L` to restore the board from `patterns/saved_pattern.txt`
 
 ---
 
-## 🖼️ Sample Pattern
+## 🎥 Generating GIFs
 
-### 📂 `/patterns/glider.txt`
+1. Press **G** once to **start recording**
+2. Press **G** again to **stop recording**
+3. A file named `simulation.gif` will be created in your project folder
+
+---
+
+## 🧪 Sample Pattern
+
+### `patterns/glider.txt`:
 
 ```
-0 1 0
-0 0 1
-1 1 1
+0,0
+1,1
+2,-1
+2,0
+2,1
 ```
 
-You can save your own patterns in similar `.txt` files using the in-game `S` key.
+This pattern generates a "glider" — a moving object that travels diagonally across the grid.
 
 ---
 
-## 📸 GIF Output Example
+## 🔗 GitHub Repository
 
-Below is a sample GIF generated using the in-app recording feature (`G` key):
+🔗 [https://github.com/LAKSHYAMARODIA01/Conway-s-Game-of-Life](https://github.com/LAKSHYAMARODIA01/Conway-s-Game-of-Life)
 
-![Demo](https://github.com/LAKSHYAMARODIA01/Conway-s-Game-of-Life/blob/main/demo.gif?raw=true)
-
----
-
-## 💡 Highlights
-
-* Fully modular Python codebase
-* Pattern editor and file-based persistence
-* Clean, resizable grid rendering
-* Built-in `.txt` parser for patterns
-* Easy export of evolving patterns as GIFs
+Feel free to ⭐ star the repository and contribute!
 
 ---
 
-## 📦 Requirements
+## 👨‍💻 Author
 
-```
-pygame
-imageio
-```
-
-Install with:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 🤝 Contributing
-
-Feel free to fork, add more patterns, enhance UI, or optimize performance!
-
-> Star 🌟 the project if you find it useful or fun.
-
----
-
-## 🧑‍💻 Author
-
-**Lakshya Marodia**
-🔗 [GitHub Profile](https://github.com/LAKSHYAMARODIA01)
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License — use it freely for personal and educational projects.
-
-
+**Lakshya Marodia**  
+🔗 [GitHub Profile](https://github.com/LAKSHYAMARODIA01)  
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/lakshya-marodia)
