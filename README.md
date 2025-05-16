@@ -153,5 +153,4 @@ Feel free to fork, add more patterns, enhance UI, or optimize performance!
 
 This project is licensed under the MIT License — use it freely for personal and educational projects.
 
-```
 
